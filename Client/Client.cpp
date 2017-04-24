@@ -28,7 +28,10 @@ CClientApp::CClientApp()
 	// TODO: 在此处添加构造代码，
 	// 将所有重要的初始化放置在 InitInstance 中
 }
-
+CClientApp::~CClientApp()
+{
+	WSACleanup();
+}
 
 // 唯一的一个 CClientApp 对象
 
@@ -39,6 +42,20 @@ CClientApp theApp;
 
 BOOL CClientApp::InitInstance()
 {
+	WSADATA wsaData;
+	int ret;
+	ret=WSAStartup(MAKEWORD(2,2),&wsaData);
+	if (SOCKET_ERROR==ret){
+		 //MessageBox("WSAStartup 错误");
+		return FALSE;
+	}
+	if ( LOBYTE( wsaData.wVersion ) != 2 ||//是取得16进制数最低（最右边）那个字节的内容
+		HIBYTE( wsaData.wVersion ) != 2 ) {//取得16进制数最高（最左边）那个字节的内容
+
+			WSACleanup( );
+			return FALSE; 
+	}
+
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。

@@ -19,6 +19,7 @@ class CClientApp : public CWinApp
 {
 public:
 	CClientApp();
+	~CClientApp();
 
 // ÖØÐ´
 public:

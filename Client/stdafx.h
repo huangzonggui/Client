@@ -55,4 +55,8 @@
 #endif
 #endif
 
+#include "winsock2.h"
+#pragma comment(lib,"ws2_32.lib")
+#define SERVERIP    "127.0.0.1"
+#define SERVERPORT  6666
 
